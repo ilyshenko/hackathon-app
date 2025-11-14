@@ -39,7 +39,8 @@ export default function MemoryCard() {
     setFlipped(false);
 
     cardRef.current.style.opacity = 0;
-    cardRef.current.style.transform = `translateX(${direction === "left" ? "-80px" : "80px"})`;
+    cardRef.current.style.transform =
+      `translateX(${direction === "left" ? "-80px" : "80px"})`;
 
     setTimeout(() => {
       setIndex((prev) => (prev + 1) % cardsData.length);
@@ -48,7 +49,6 @@ export default function MemoryCard() {
     }, 250);
   }
 
-  // --- свайп жест ---
   function touchStart(e) {
     startX = e.touches[0].clientX;
   }
@@ -63,6 +63,11 @@ export default function MemoryCard() {
 
   return (
     <div className="mc-container">
+
+      <div className="mc-progress">
+        карточка {index + 1} из {cardsData.length}
+      </div>
+
       <div
         className={`mc-card ${flipped ? "flipped" : ""}`}
         onClick={handleFlip}

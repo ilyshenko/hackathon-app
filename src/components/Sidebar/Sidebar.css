@@ -92,3 +92,33 @@
 }
 .file-row:hover{ background: rgba(255,255,255,0.12); transform:translateX(6px) }
 .empty{ opacity:0.9; font-size:14px; padding:6px 0; color:rgba(255,255,255,0.95) }
+
+.sidebar-root {
+  position: relative; /* обязательно, чтобы абсолютный тигр позиционировался относительно панели */
+}
+
+.tiger-container {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+
+.tiger-image {
+  width: 400px;           /* увелиличила тигра */
+  height: auto;
+  filter: drop-shadow(0px 8px 18px rgba(0,0,0,0.50));  /* мягкая тень */
+  
+  transition:
+    transform 0.35s cubic-bezier(.22,1.3,.32,1),  /* плавный "упругий" эффект */
+    filter 0.25s ease;
+}
+
+.tiger-image:hover {
+  transform: scale(1.1) translateY(-6px);  /* эффект прыжка */
+  filter: drop-shadow(0px 12px 26px rgba(0,0,0,0.45));
+}
