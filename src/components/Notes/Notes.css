@@ -1,0 +1,32 @@
+.generate-btn {
+  background-color: #ff9500; /* Оранжевый цвет фона, как на изображении */
+  color: white; /* Белый текст */
+  padding: 15px 30px; /* Отступы внутри кнопки */
+  border: none; /* Убираем рамку */
+  border-radius: 20px; /* Скругление углов, как на изображении */
+  font-size: 18px; /* Размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  cursor: pointer; /* Курсор "рука" при наведении */
+  margin-bottom: 15px; /* Отступ снизу от кнопки до текста */
+  text-align: center; /* Выравнивание текста по центру */
+}
+
+.generate-btn:hover {
+  background-color: #e68a00; /* Лёгкое затемнение при наведении (опционально) */
+}
+
+
+.notes-container {
+  max-width: auto;
+  padding: 20px;
+}
+
+.note-content {
+  white-space: pre-wrap;  /* Сохраняет пробелы и переносы */
+  word-wrap: break-word;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  line-height: 1.6;
+  tab-size: 4; /* Для отступов табуляцией */
+}
