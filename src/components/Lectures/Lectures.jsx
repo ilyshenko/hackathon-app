@@ -42,7 +42,7 @@ export default function Lectures() {
 
   return (
     <div className="lectures-container">
-
+        
       {/* Кнопка-карточка */}
       <div className="upload-card" onClick={() => setShowModal(true)}>
         <div className="upload-plus">+</div>
