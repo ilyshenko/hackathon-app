@@ -1,0 +1,109 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-window {
+  background: white;
+  width: 420px;
+  padding: 25px;
+  border-radius: 22px;
+  box-shadow: 0 4px 25px rgba(0,0,0,.25);
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.modal-btn {
+  width: 100%;
+  padding: 15px;
+  background: #fa7402;
+  color: white;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-btn:hover {
+  opacity: .85;
+}
+.upload-card {
+  width: 180px;
+  height: 220px;
+  border-radius: 22px;
+  border: 2px dashed #fa7402;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.upload-card:hover {
+  background: rgba(250, 116, 2, 0.08);
+}
+
+.upload-plus {
+  font-size: 70px;
+  color: #fa7402;
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fa7402;
+}
+.lecture-card {
+  width: 180px;
+  height: 220px;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+
+.lecture-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+}
+
+.lecture-icon {
+  font-size: 70px;
+}
+
+.lecture-title {
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

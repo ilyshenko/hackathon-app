@@ -1,68 +1,70 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* index.css - глобальные переменные и reset */
+:root{
+  --accent: #fa7402;
+  --bg: #ffffff;
+  --glass-start: #fffdf3;
+  --glass-end: rgba(247,178,99,0.07);
+  --radius-lg: 32px;
+  --radius-md: 17px;
+  --shadow-strong: 0px 4px 30px 3px rgba(0,0,0,0.3);
+  --shadow-soft: 0px 4px 15px rgba(0,0,0,0.08);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+*{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%}
+body{
+  font-family: "Soyuz Grotesk", Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color: #111;
+  text-transform: lowercase; /* всё lowercase */
+  font-size:14px;
+  line-height:1.3;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Utility */
+.container-g{
+  display:flex;
+  height:100vh;
+  gap:24px;
+  padding:24px;
+  align-items:stretch;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Г-образный layout: sidebar слева, контент справа */
+.app-layout{
+  display:flex;
+  flex:1;
+  gap:24px;
+}
+
+/* Карточки / панели */
+.panel{
+  background: white;
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Кнопки */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
-  transition: border-color 0.25s;
+  font-weight:600;
+  text-transform:lowercase;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+.btn:active{ transform: translateY(1px) }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* helper for icons baseline */
+.icon { display:inline-flex; align-items:center; justify-content:center; }
+
+/* make scrollbars thin (nice touch) */
+::-webkit-scrollbar { width:8px; height:8px }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius:8px }

@@ -1,0 +1,94 @@
+/* Sidebar.css */
+.sidebar-root{
+  width:320px;
+  min-width:240px;
+  height:calc(100vh - 40px);
+  padding:12px;
+  box-sizing:border-box;
+}
+.sidebar-panel{
+  background: var(--accent);
+  border-radius: 28px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.25);
+  padding:20px;
+  height:100%;
+  color: #fff;
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+.sidebar-header h3{ margin:0; font-weight:800; font-size:18px; text-transform:lowercase; }
+
+.btn.create{
+  background: #fff;
+  color: var(--accent);
+  border-radius:12px;
+  padding:8px 14px;
+  font-weight:700;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  text-transform:lowercase;
+  cursor:pointer;
+}
+
+.folders{ overflow:auto; padding-right:6px; }
+
+/* одна папка */
+.folder{ margin-bottom:10px; }
+
+.folder-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:transparent;
+  border:none;
+  color:inherit;
+  padding:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition: background .12s ease, transform .12s ease;
+  font-size:16px; /* larger text */
+}
+.folder-toggle:hover{ background: rgba(255,255,255,0.06); transform:translateX(4px); }
+
+.chev{
+  transition: transform .18s cubic-bezier(.2,.9,.3,1);
+  color: #fff;
+}
+.chev.open{ transform: rotate(90deg); }
+
+/* название папки */
+.fname{ font-weight:700; letter-spacing:0.2px; }
+
+/* контейнер файлов (скрывается скрытостью) */
+.files{
+  max-height:0;
+  overflow:hidden;
+  transition: max-height .25s ease, opacity .2s ease;
+  opacity:0;
+  padding-left:30px;
+}
+.files.open{
+  opacity:1;
+  max-height:300px;
+  margin-top:8px;
+}
+
+.file-row{
+  background: rgba(255,255,255,0.06);
+  padding:10px 12px;
+  border-radius:8px;
+  margin-bottom:8px;
+  font-size:15px;
+  cursor:pointer;
+  transition: background .12s ease, transform .08s ease;
+}
+.file-row:hover{ background: rgba(255,255,255,0.12); transform:translateX(6px) }
+.empty{ opacity:0.9; font-size:14px; padding:6px 0; color:rgba(255,255,255,0.95) }
