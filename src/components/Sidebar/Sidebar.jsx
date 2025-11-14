@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Sidebar.css";
+import { LectureContext } from "../../context/LectureContext";
 
 const ChevronRight = ({ open }) => (
   <svg
@@ -21,45 +22,64 @@ const ChevronRight = ({ open }) => (
 );
 
 export default function Sidebar() {
-  // ---------------- ТИГР ------------------
-  const tigerImages = [
-    "/tiger/1.png",
-    "/tiger/2.png",
-    "/tiger/3.png",
-    "/tiger/4.png"
-  ];
+  const { lectures, activeLecture, setActiveLecture } = useContext(LectureContext);
 
-  const [tigerIndex, setTigerIndex] = useState(0);
-
-  const changeTiger = () => {
-    setTigerIndex((prev) => (prev + 1) % tigerImages.length);
-  };
-
-  // ---------------- ПАПКИ ------------------
+  // ------------------- ПАПКИ -------------------
   const [folders, setFolders] = useState([
-    { name: "frontend", open: false, files: ["react intro", "hooks", "state management"] },
-    { name: "backend", open: false, files: ["node basics", "express routes"] }
+    { name: "frontend", open: false, files: ["react intro", "hooks"] },
+    { name: "backend", open: false, files: ["node", "express"] }
   ]);
 
   const createFolder = () => {
     const title = prompt("название папки:");
     if (!title) return;
-    setFolders((prev) => [
-      ...prev,
-      { name: title.toLowerCase(), open: false, files: [] }
-    ]);
+    setFolders((prev) => [...prev, { name: title.toLowerCase(), open: false, files: [] }]);
   };
 
-  const toggle = (idx) =>
+  const toggle = (i) =>
     setFolders((prev) =>
-      prev.map((f, i) =>
-        i === idx ? { ...f, open: !f.open } : f
+      prev.map((f, idx) => (idx === i ? { ...f, open: !f.open } : f))
+    );
+
+  // ------------------- ТИГР -------------------
+  const tigerImages = ["/tiger/1.png", "/tiger/2.png", "/tiger/3.png", "/tiger/4.png"];
+  const [tigerIndex, setTigerIndex] = useState(0);
+
+  const changeTiger = () => setTigerIndex((prev) => (prev + 1) % tigerImages.length);
+
+  // ------------------- DRAG & DROP -------------------
+
+  const [dragging, setDragging] = useState(null); // { id, title }
+
+  const onDragStart = (lec) => {
+    setDragging({ id: lec.id, title: lec.title });
+  };
+
+  const onDragEnd = () => setDragging(null);
+
+  const onDragOverFolder = (e) => {
+    e.preventDefault();
+  };
+
+  const onDropToFolder = (folderIndex) => {
+    if (!dragging) return;
+
+    setFolders((prev) =>
+      prev.map((f, idx) =>
+        idx === folderIndex
+          ? { ...f, files: [...f.files, dragging.title] }
+          : f
       )
     );
+
+    setDragging(null);
+  };
 
   return (
     <aside className="sidebar-root">
       <div className="sidebar-panel">
+
+        {/* --------- ШАПКА + КНОПКА --------- */}
         <div className="sidebar-header">
           <h3>библиотека</h3>
           <button className="btn create" onClick={createFolder}>
@@ -67,9 +87,15 @@ export default function Sidebar() {
           </button>
         </div>
 
+        {/* --------- ПАПКИ --------- */}
         <div className="folders">
           {folders.map((f, i) => (
-            <div key={i} className="folder">
+            <div
+              key={i}
+              className={`folder ${dragging ? "folder-dropzone" : ""}`}
+              onDragOver={onDragOverFolder}
+              onDrop={() => onDropToFolder(i)}
+            >
               <button className="folder-toggle" onClick={() => toggle(i)}>
                 <ChevronRight open={f.open} />
                 <span className="fname">{f.name}</span>
@@ -89,13 +115,32 @@ export default function Sidebar() {
             </div>
           ))}
         </div>
+
+        {/* --------- ЗАГРУЖЕННЫЕ ФАЙЛЫ --------- */}
+        <div className="history-list">
+          {lectures.map((lec) => {
+            const active = activeLecture?.id === lec.id;
+            return (
+              <div
+                key={lec.id}
+                className={`file-row upload-file ${active ? "active-file" : ""}`}
+                draggable
+                onDragStart={() => onDragStart(lec)}
+                onDragEnd={onDragEnd}
+                onClick={() => setActiveLecture(lec)}
+              >
+                {lec.title}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* ------------------ ТИГР ------------------ */}
+      {/* --------- ТИГР --------- */}
       <div className="tiger-container" onClick={changeTiger}>
         <img
           src={tigerImages[tigerIndex]}
-          alt="Тигр эмоция"
+          alt="Тигр"
           className="tiger-image"
           draggable="false"
         />
