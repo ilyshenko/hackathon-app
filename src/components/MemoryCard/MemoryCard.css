@@ -73,3 +73,10 @@
 .mc-btn:hover {
   background: #ff8e2f;
 }
+.mc-progress {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #444;
+  font-weight: 500;
+  text-transform: lowercase;
+}
