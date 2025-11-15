@@ -166,7 +166,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -234,4 +234,55 @@
   color: #666;
   font-size: 14px;
   margin: 0;
+}
+.mc-generate-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mc-generate-btn {
+  width: 600px;
+  max-width: 90%;
+  padding: 15px 30px;
+  background-color: #ff9500;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+/* ========== Центр и размер кнопки для MemoryCard ========== */
+
+.mc-generate-wrapper {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* более специфично, перебивает другие .mc-generate-btn правила */
+.mc-container .mc-generate-wrapper .mc-generate-btn {
+  width: 600px;
+  max-width: 25%;
+  padding: 15px 30px;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* запасной вариант с !important если что-то всё ещё перебивает */
+.mc-container .mc-generate-wrapper .mc-generate-btn.important {
+  width: 900px !important;
+  max-width: 90% !important;
 }

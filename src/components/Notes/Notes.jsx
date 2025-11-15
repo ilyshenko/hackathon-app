@@ -4,11 +4,10 @@ import './Notes.css';
 export default function Notes() {
   const [noteText, setNoteText] = useState('');
   const [isGenerated, setIsGenerated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Загрузка только по кнопке
+  const [isLoading, setIsLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState(null);
 
-  // Загрузка конспектов при первом рендере (без индикатора)
   useEffect(() => {
     const loadNotes = async () => {
       try {
@@ -58,12 +57,11 @@ export default function Notes() {
     loadNotes();
   }, []);
 
-  // Обработчик кнопки (с индикатором загрузки)
   const generateOrRegenerateNote = () => {
-    setIsLoading(true); // Включаем индикатор
+    setIsLoading(true);
     setError(null);
 
-    setTimeout(() => { // Искусственная задержка для видимости индикатора
+    setTimeout(() => {
       try {
         if (!isGenerated && notes.length > 0) {
           setNoteText(notes[0]);
@@ -78,21 +76,25 @@ export default function Notes() {
       } catch (err) {
         setError('Ошибка при генерации конспекта.');
       }
-      setIsLoading(false); // Отключаем индикатор
-    }, 800); // 800 мс — длительность анимации
+      setIsLoading(false);
+    }, 800);
   };
 
   const buttonText = isGenerated ? 'Перегенерировать' : 'Сгенерировать';
 
   return (
     <div className="notes-container">
-      <button
-        onClick={generateOrRegenerateNote}
-        className="generate-btn"
-        disabled={isLoading} // Блокируем кнопку во время загрузки
-      >
-        {isLoading ? 'Идёт генерация...' : buttonText}
-      </button>
+
+      {/* БЛОК ДЛЯ ЦЕНТРОВКИ КНОПКИ */}
+      <div className="center-container">
+        <button
+          onClick={generateOrRegenerateNote}
+          className="generate-btn"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Идёт генерация...' : buttonText}
+        </button>
+      </div>
 
       {error && (
         <div className="error-state">

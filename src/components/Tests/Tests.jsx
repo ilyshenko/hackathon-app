@@ -158,28 +158,27 @@ export default function Test() {
     );
   };
 
-  return (
-      <div className="test-container">
+return (
+  <div className="test-container">
 
-
-
-        {/* Кнопка генерации теста (показывается, если тест не начат и нет загрузки) */}
-        {!isTestStarted && !isLoading && (
-          <button onClick={startTest} className="test-btn">
-            Сгенерировать тест
-          </button>
-        )}
-
-        {/* Индикатор загрузки */}
-        {isLoading && (
-          <div className="loading-message">
-            Идёт генерация...
-          </div>
-        )}
-
-        {/* Вопрос или результаты (если тест начат) */}
-        {isTestStarted && !showResults && renderQuestion()}
-        {isTestStarted && showResults && renderResults()}
+    {/* Центрируем кнопку генерации */}
+    {!isTestStarted && !isLoading && (
+      <div className="center-container">
+        <button onClick={startTest} className="test-btn">
+          Сгенерировать
+        </button>
       </div>
-    );
+    )}
+
+    {isLoading && (
+      <div className="loading-message">
+        Идёт генерация...
+      </div>
+    )}
+
+    {isTestStarted && !showResults && renderQuestion()}
+    {isTestStarted && showResults && renderResults()}
+  </div>
+);
+
 }
