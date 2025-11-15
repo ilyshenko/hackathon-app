@@ -5,7 +5,6 @@ import { LectureContext } from "../../context/LectureContext";
 export default function Lectures() {
   const { lectures, addLecture, activeLecture, setActiveLecture } = useContext(LectureContext);
 
-  // модалка / временные состояния перед загрузкой
   const [showUpload, setShowUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [titleDraft, setTitleDraft] = useState("");
@@ -13,7 +12,6 @@ export default function Lectures() {
 
   const fileInputRef = useRef(null);
 
-  // при выборе файла не отправляем — просто сохраняем в состоянии, даём возможность редактировать title
   const handleFileChosen = (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
@@ -26,7 +24,6 @@ export default function Lectures() {
     setLoading(true);
     try {
       await addLecture(selectedFile, titleDraft);
-      // сброс формы
       setSelectedFile(null);
       setTitleDraft("");
       setShowUpload(false);
@@ -38,12 +35,10 @@ export default function Lectures() {
     }
   };
 
-  // выбор карточки в основной области — делает её активной (и по логике контекста — отправится)
   const handleSelectInGrid = (lec) => {
     setActiveLecture(lec);
   };
 
-  // для открытия файла отдельно (двойной клик)
   const handleOpen = (lec) => {
     window.open(lec.dataUrl, "_blank");
   };
@@ -69,7 +64,6 @@ export default function Lectures() {
               >
                 <div className="book-icon">📘</div>
                 <div className="lecture-title">{lec.title}</div>
-                <div className="lecture-date">{new Date(lec.createdAt).toLocaleString()}</div>
               </div>
             );
           })}
@@ -81,13 +75,7 @@ export default function Lectures() {
           <div className="modal-window" onClick={(e) => e.stopPropagation()}>
             <div className="modal-title">загрузить новую лекцию</div>
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".pdf,.txt"
-              className="modal-input"
-              onChange={handleFileChosen}
-            />
+            
 
             <input
               type="text"
@@ -96,6 +84,8 @@ export default function Lectures() {
               value={titleDraft}
               onChange={(e) => setTitleDraft(e.target.value)}
             />
+
+            <input ref={fileInputRef} type="file" accept=".pdf,.txt" style={{ display: 'none' }} onChange={handleFileChosen} />
 
             <div style={{ display: "flex", gap: 10 }}>
               <button className="modal-btn" onClick={() => { setShowUpload(false); setSelectedFile(null); setTitleDraft(""); }} disabled={loading}>

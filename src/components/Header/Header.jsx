@@ -18,7 +18,7 @@ export default function Header({ tabs = [], active, setActive }) {
     <header className="header-root">
       <div className="header-inner">
         <div className="header-left">
-          <h2 className="brand">учебная платформа <span>VITALY.Ai</span></h2>
+          <h2 className="brand">ИИ репетитор <span>VITALY.Ai</span></h2>
         </div>
 
         <nav className="tabs" role="tablist" aria-label="главное меню">
