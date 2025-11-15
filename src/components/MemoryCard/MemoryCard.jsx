@@ -27,28 +27,47 @@ const cardsData = [
 export default function MemoryCard() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [cardsGenerated, setCardsGenerated] = useState(false); // Флаг: сгенерированы ли карточки
+  const [isGenerating, setIsGenerating] = useState(false); // Флаг: идёт генерация
 
   const cardRef = useRef(null);
   let startX = 0;
 
+  // Переворот карточки
   function handleFlip() {
+    if (isAnimating || !cardsGenerated) return;
     setFlipped(!flipped);
   }
 
-  function handleNext(direction) {
+  // Переход к следующей/предыдущей карточке
+  function handleNext(nextDirection) {
+    if (isAnimating || !cardsGenerated) return;
+
+    setIsAnimating(true);
+
+    // Сначала сбрасываем переворот
     setFlipped(false);
 
-    cardRef.current.style.opacity = 0;
-    cardRef.current.style.transform =
-      `translateX(${direction === "left" ? "-80px" : "80px"})`;
-
+    // Ждём завершения анимации переворота перед сменой карточки
     setTimeout(() => {
-      setIndex((prev) => (prev + 1) % cardsData.length);
-      cardRef.current.style.transform = "translateX(0)";
-      cardRef.current.style.opacity = 1;
-    }, 250);
+      let newIndex;
+      if (nextDirection === "left") {
+        newIndex = (index - 1 + cardsData.length) % cardsData.length;
+      } else {
+        newIndex = (index + 1) % cardsData.length;
+      }
+
+      setIndex(newIndex);
+
+      // Ждём появления новой карточки перед сбросом анимации
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 400);
+    }, 300);
   }
 
+  // Обработка свайпа
   function touchStart(e) {
     startX = e.touches[0].clientX;
   }
@@ -61,37 +80,76 @@ export default function MemoryCard() {
     if (diff < -60) handleNext("left");
   }
 
+  // Генерация карточек (с задержкой)
+  function generateCards() {
+    setIsGenerating(true);
+
+    // Задержка 1.5 секунды перед отображением карточек
+    setTimeout(() => {
+      setCardsGenerated(true);
+      setIsGenerating(false);
+    }, 1500);
+  }
+
   return (
     <div className="mc-container">
-
-      <div className="mc-progress">
-        карточка {index + 1} из {cardsData.length}
-      </div>
-
-      <div
-        className={`mc-card ${flipped ? "flipped" : ""}`}
-        onClick={handleFlip}
-        onTouchStart={touchStart}
-        onTouchEnd={touchEnd}
-        ref={cardRef}
-      >
-        <div className="mc-face mc-front">
-          {cardsData[index].question}
+      {!cardsGenerated ? (
+        // Экран генерации
+        <div className="mc-generate-screen">
+          <button
+            onClick={generateCards}
+            className="mc-generate-btn"
+            disabled={isGenerating}
+          >
+            {isGenerating ? "Идёт генерация..." : "Сгенерировать"}
+          </button>
+          {isGenerating && (
+            <div className="mc-loading">
+              <div className="mc-spinner"></div>
+              <p>Подготовка карточек...</p>
+            </div>
+          )}
         </div>
+      ) : (
+        <>
+          <div className="mc-progress">
+            карточка {index + 1} из {cardsData.length}
+          </div>
 
-        <div className="mc-face mc-back">
-          {cardsData[index].answer}
-        </div>
-      </div>
+          <div
+            className={`mc-card ${flipped ? "flipped" : ""} ${isAnimating ? "changing" : ""}`}
+            onClick={handleFlip}
+            onTouchStart={touchStart}
+            onTouchEnd={touchEnd}
+            ref={cardRef}
+          >
+            <div className="mc-face mc-front">
+              {cardsData[index].question}
+            </div>
 
-      <div className="mc-buttons">
-        <button onClick={() => handleNext("left")} className="mc-btn">
-          ← предыдущая
-        </button>
-        <button onClick={() => handleNext("right")} className="mc-btn">
-          следующая →
-        </button>
-      </div>
+            <div className="mc-face mc-back">
+              {cardsData[index].answer}
+            </div>
+          </div>
+
+          <div className="mc-buttons">
+            <button
+              onClick={() => handleNext("left")}
+              className="mc-btn"
+              disabled={isAnimating}
+            >
+              ← предыдущая
+            </button>
+            <button
+              onClick={() => handleNext("right")}
+              className="mc-btn"
+              disabled={isAnimating}
+            >
+              следующая →
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

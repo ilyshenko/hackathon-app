@@ -5,6 +5,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.mc-progress {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
 }
 
 .mc-card {
@@ -12,15 +21,76 @@
   height: 260px;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   position: relative;
   transform-style: preserve-3d;
-  transition: transform .45s ease, opacity .25s ease;
+  transition: transform 0.6s ease;
   cursor: pointer;
+  perspective: 1000px;
 }
 
+/* Переворот карточки */
 .mc-card.flipped {
   transform: rotateY(180deg);
+}
+
+/* Анимация смены карточек - применяется только когда меняем карточку */
+.mc-card.changing {
+  animation: cardChange 0.7s ease-in-out;
+}
+
+@keyframes cardChange {
+  0% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+  30% {
+    transform: translateX(-40px) scale(0.9) rotateY(0deg);
+  }
+  70% {
+    transform: translateX(40px) scale(0.9) rotateY(0deg);
+  }
+  100% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+}
+
+@keyframes cardChangeLeft {
+  0% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+  30% {
+    transform: translateX(40px) scale(0.9) rotateY(0deg);
+  }
+  70% {
+    transform: translateX(-40px) scale(0.9) rotateY(0deg);
+  }
+  100% {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+}
+
+/* Для кнопки "предыдущая" - обратная анимация */
+.mc-card.changing:has(~ .mc-buttons .mc-btn:first-child:active) {
+  animation: cardChangeLeft 0.7s ease-in-out;
+}
+
+@keyframes cardChangeLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+  30% {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.9) rotateY(0deg);
+  }
+  70% {
+    opacity: 0;
+    transform: translateX(40px) scale(0.9) rotateY(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
 }
 
 .mc-face {
@@ -31,13 +101,13 @@
   box-sizing: border-box;
   border-radius: 20px;
   backface-visibility: hidden;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  line-height: 1.5;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 /* Лицевая сторона */
@@ -67,16 +137,101 @@
   border: none;
   border-radius: 14px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.mc-btn:hover {
+.mc-btn:hover:not(:disabled) {
+  background: #ff8e2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+}
+
+.mc-btn:active {
+  transform: translateY(0);
+}
+
+.mc-btn:disabled {
+  background: #cccccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.mc-container {
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Экран генерации */
+.mc-generate-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.mc-generate-btn {
+  display: block;
+    width: 600px;
+    padding: 15px 30px;
+    margin: 10px 0;
+    background-color: #ff9500;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.mc-generate-btn:hover:not(:disabled) {
   background: #ff8e2f;
 }
-.mc-progress {
-  margin-bottom: 20px;
-  font-size: 18px;
-  color: #444;
-  font-weight: 500;
-  text-transform: lowercase;
+
+.mc-generate-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Индикатор загрузки */
+.mc-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mc-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #fa7402;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mc-loading p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
 }
