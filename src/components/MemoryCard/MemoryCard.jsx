@@ -28,30 +28,26 @@ export default function MemoryCard() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [cardsGenerated, setCardsGenerated] = useState(false); // Флаг: сгенерированы ли карточки
-  const [isGenerating, setIsGenerating] = useState(false); // Флаг: идёт генерация
+  const [cardsGenerated, setCardsGenerated] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const cardRef = useRef(null);
   let startX = 0;
 
-  // Переворот карточки
   function handleFlip() {
     if (isAnimating || !cardsGenerated) return;
     setFlipped(!flipped);
   }
 
-  // Переход к следующей/предыдущей карточке
   function handleNext(nextDirection) {
     if (isAnimating || !cardsGenerated) return;
 
     setIsAnimating(true);
-
-    // Сначала сбрасываем переворот
     setFlipped(false);
 
-    // Ждём завершения анимации переворота перед сменой карточки
     setTimeout(() => {
       let newIndex;
+
       if (nextDirection === "left") {
         newIndex = (index - 1 + cardsData.length) % cardsData.length;
       } else {
@@ -60,14 +56,12 @@ export default function MemoryCard() {
 
       setIndex(newIndex);
 
-      // Ждём появления новой карточки перед сбросом анимации
       setTimeout(() => {
         setIsAnimating(false);
       }, 400);
     }, 300);
   }
 
-  // Обработка свайпа
   function touchStart(e) {
     startX = e.touches[0].clientX;
   }
@@ -80,11 +74,9 @@ export default function MemoryCard() {
     if (diff < -60) handleNext("left");
   }
 
-  // Генерация карточек (с задержкой)
   function generateCards() {
     setIsGenerating(true);
 
-    // Задержка 1.5 секунды перед отображением карточек
     setTimeout(() => {
       setCardsGenerated(true);
       setIsGenerating(false);
@@ -93,9 +85,10 @@ export default function MemoryCard() {
 
   return (
     <div className="mc-container">
-      {!cardsGenerated ? (
-        // Экран генерации
-        <div className="mc-generate-screen">
+      
+      {/* Кнопка генерации сверху по центру */}
+      {!cardsGenerated && (
+        <div className="mc-generate-wrapper">
           <button
             onClick={generateCards}
             className="mc-generate-btn"
@@ -103,6 +96,7 @@ export default function MemoryCard() {
           >
             {isGenerating ? "Идёт генерация..." : "Сгенерировать"}
           </button>
+
           {isGenerating && (
             <div className="mc-loading">
               <div className="mc-spinner"></div>
@@ -110,14 +104,19 @@ export default function MemoryCard() {
             </div>
           )}
         </div>
-      ) : (
+      )}
+
+      {/* Основной контент после генерации */}
+      {cardsGenerated && (
         <>
           <div className="mc-progress">
             карточка {index + 1} из {cardsData.length}
           </div>
 
           <div
-            className={`mc-card ${flipped ? "flipped" : ""} ${isAnimating ? "changing" : ""}`}
+            className={`mc-card ${
+              flipped ? "flipped" : ""
+            } ${isAnimating ? "changing" : ""}`}
             onClick={handleFlip}
             onTouchStart={touchStart}
             onTouchEnd={touchEnd}

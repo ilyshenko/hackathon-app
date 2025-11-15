@@ -25,10 +25,7 @@ export default function Sidebar() {
   const { lectures, activeLecture, setActiveLecture } = useContext(LectureContext);
 
   // ------------------- ПАПКИ -------------------
-  const [folders, setFolders] = useState([
-    { name: "frontend", open: false, files: ["react intro", "hooks"] },
-    { name: "backend", open: false, files: ["node", "express"] }
-  ]);
+const [folders, setFolders] = useState([]);
 
   const createFolder = () => {
     const title = prompt("название папки:");

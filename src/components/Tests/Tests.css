@@ -9,10 +9,11 @@ h1 {
 }
 
 .test-btn {
-  display: block;
-  width: 100%;
-  padding: 15px 30px;
-  margin: 10px 0;
+
+  width: 600px;            /* как в конспектах */
+  max-width: 90%;          /* чтобы не ломалось на телефонах */
+  margin: 0 auto 15px;     /* центрируем */
+  display: block;          /* для центрирования */
   background-color: #ff9500;
   color: white;
   border: none;
@@ -171,4 +172,39 @@ h1 {
   background-color: #f8f9fa;
   border-radius: 8px;
   border: 1px solid #dee2e6;
+}
+/* Центрирование кнопки сверху */
+.center-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 20px;
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* более специфичное правило, чтобы перебить глобальные .test-btn правила */
+.test-container .center-container .test-btn {
+  width: 600px;        /* желаемая ширина */
+  max-width: 35%;      /* адаптивность на маленьких экранах */
+  padding: 15px 30px;  /* высота/внутренние отступы */
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;      /* чтобы padding формировал высоту */
+}
+
+/* если где-то есть правило, сильно переопределяющее — запасной вариант */
+.test-container .center-container .test-btn.important {
+  width: 600px !important;
+  max-width: 90% !important;
 }
