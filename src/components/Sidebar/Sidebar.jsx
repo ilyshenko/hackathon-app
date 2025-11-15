@@ -145,6 +145,8 @@ export default function Sidebar() {
           draggable="false"
         />
       </div>
+
     </aside>
   );
+
 }
