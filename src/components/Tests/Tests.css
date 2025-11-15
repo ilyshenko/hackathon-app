@@ -161,3 +161,14 @@ h1 {
   background-color: #ff9500;
   transition: width 0.3s ease;
 }
+
+.loading-message {
+  text-align: center;
+  font-size: 18px;
+  color: #6c757d;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}

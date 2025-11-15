@@ -42,15 +42,22 @@ const QUESTIONS = [
 export default function Test() {
   const [isTestStarted, setIsTestStarted] = useState(false); // Флаг: начался ли тест
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState('');
 
-
-  // Запуск теста (по нажатию кнопки)
   const startTest = () => {
-    setIsTestStarted(true);
-  };
+      setIsLoading(true); // Включаем индикатор загрузки
+
+      // Задержка 1500 мс (1.5 секунды)
+      setTimeout(() => {
+          setIsTestStarted(true);
+          setIsLoading(false); // Отключаем индикатор
+        }, 1500);
+    };
+
+
 
   // Генерация нового теста (при повторном нажатии "Сгенерировать")
   const generateNewTest = () => {
@@ -152,21 +159,27 @@ export default function Test() {
   };
 
   return (
-    <div className="test-container">
-
-      {/* Если тест не начат — показываем только кнопку */}
-      {!isTestStarted && (
-        <button onClick={startTest} className="test-btn">
-          Сгенерировать тест
-        </button>
-      )}
-
-      {/* Если тест начат, но не завершён — показываем вопрос */}
-      {isTestStarted && !showResults && renderQuestion()}
+      <div className="test-container">
 
 
-      {/* Если тест завершён — показываем результаты */}
-      {isTestStarted && showResults && renderResults()}
-    </div>
-  );
+
+        {/* Кнопка генерации теста (показывается, если тест не начат и нет загрузки) */}
+        {!isTestStarted && !isLoading && (
+          <button onClick={startTest} className="test-btn">
+            Сгенерировать тест
+          </button>
+        )}
+
+        {/* Индикатор загрузки */}
+        {isLoading && (
+          <div className="loading-message">
+            Идёт генерация...
+          </div>
+        )}
+
+        {/* Вопрос или результаты (если тест начат) */}
+        {isTestStarted && !showResults && renderQuestion()}
+        {isTestStarted && showResults && renderResults()}
+      </div>
+    );
 }
