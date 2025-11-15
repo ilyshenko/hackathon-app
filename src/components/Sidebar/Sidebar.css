@@ -40,80 +40,135 @@
 
 /* ------------------- ПАПКИ ------------------- */
 
-.folders {
-  overflow: auto;
-  padding-right: 6px;
-}
-
 .folder {
-  margin-bottom: 10px;
-}
-
-/* подсветка папки, если перетаскиваем */
-.folder-dropzone:hover .folder-toggle {
-  background: rgba(255,255,255,0.18);
+  margin-bottom: 14px;
 }
 
 .folder-toggle {
   width: 100%;
   display: flex;
-  gap: 12px;
   align-items: center;
-  background: transparent;
-  border: none;
-  padding: 10px;
-  border-radius: 12px;
+  gap: 14px;
+
+  background: rgba(222, 103, 5, 0.745);
+  border: 1px;
+  color: #fff;
+
+  padding: 14px 16px;
+  border-radius: 16px;
+
+  font-size: 17px;
+  font-weight: 700;
+
   cursor: pointer;
-  transition: background .12s, transform .12s;
+
+  transition: 
+    background .18s ease,
+    transform .14s ease,
+    box-shadow .2s ease;
 }
 
 .folder-toggle:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.22);
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
 }
 
-.chev { transition: transform .18s; }
-.chev.open { transform: rotate(90deg); }
+.folder-dropzone:hover .folder-toggle {
+  background: rgba(255,255,255,0.34);
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px rgba(255,255,255,0.35);
+}
 
-.fname { font-weight: 700; }
+.fname {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+/* стрелочка */
+.chev {
+  width: 18px;
+  height: 18px;
+  color: #fff;
+  transition: transform .22s cubic-bezier(.2,.9,.3,1);
+}
+
+.chev.open {
+  transform: rotate(90deg);
+}
 
 /* ------------------- FILES ------------------- */
 
 .files {
   max-height: 0;
   overflow: hidden;
-  transition: max-height .25s, opacity .2s;
   opacity: 0;
-  padding-left: 30px;
+
+  transition: max-height .28s ease, opacity .22s ease;
+  padding-left: 16px;
 }
 
 .files.open {
+  max-height: 400px;
   opacity: 1;
-  max-height: 300px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
-/* единый стиль для файлов */
 .file-row {
-  background: rgba(255,255,255,0.06);
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  background: rgba(255,255,255,0.14);
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+
+  margin-bottom: 10px;
+
   cursor: pointer;
-  transition: background .12s, transform .08s;
+
+  transition:
+    background .18s ease,
+    transform .14s ease,
+    box-shadow .2s ease;
+}
+.file-row.active-inner {
+  background: rgba(0,0,0,0.28) !important;
+  transform: translateX(4px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
 }
 
-.file-row:hover,
-.active-file {
+.file-row:hover {
+  background: rgba(255,255,255,0.22);
+  transform: translateX(6px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+.upload-file {
   background: rgba(255,255,255,0.18);
-  transform: translateX(3px);
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  margin-bottom: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    transform .14s ease,
+    box-shadow .2s ease;
 }
 
-/* список загруженных файлов */
-.history-list {
-  margin-top: 20px;
-  overflow: auto;
-  padding-right: 6px;
+.upload-file:hover,
+.active-file {
+  background: rgba(255,255,255,0.28);
+  transform: translateX(6px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.28);
 }
+
 
 /* ------------------- ТИГР ------------------- */
 
@@ -137,4 +192,11 @@
 .tiger-image:hover {
   transform: scale(1.1) translateY(-6px);
   filter: drop-shadow(0px 12px 26px rgba(0,0,0,0.45));
+}
+.empty {
+  font-size: 15px;
+  opacity: 0.9;
+  padding: 6px 0 4px 4px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
 }
