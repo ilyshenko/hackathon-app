@@ -1,22 +1,14 @@
-.center-container {
-  display: flex;
-  justify-content: center;   /* по центру горизонтально */
-  align-items: center;       /* по центру вертикально (если нужно) */
-  width: 100%;
-  padding-top: 40px;         /* чтобы не прилипала к верху */
-}
-
 .generate-btn {
-  background-color: #ff9500;
-  color: white;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 15px;
-  text-align: center;
+  background-color: #ff9500; /* Оранжевый цвет фона, как на изображении */
+  color: white; /* Белый текст */
+  padding: 15px 30px; /* Отступы внутри кнопки */
+  border: none; /* Убираем рамку */
+  border-radius: 20px; /* Скругление углов, как на изображении */
+  font-size: 18px; /* Размер шрифта */
+  font-weight: bold; /* Жирный шрифт */
+  cursor: pointer; /* Курсор "рука" при наведении */
+  margin-bottom: 15px; /* Отступ снизу от кнопки до текста */
+  text-align: center; /* Выравнивание текста по центру */
 }
 
 .generate-btn:hover {

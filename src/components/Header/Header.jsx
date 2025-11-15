@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";   
 
 export default function Header({ tabs = [], active, setActive }) {
   const indicatorRef = useRef(null);
@@ -18,7 +19,10 @@ export default function Header({ tabs = [], active, setActive }) {
     <header className="header-root">
       <div className="header-inner">
         <div className="header-left">
-          <h2 className="brand">ИИ репетитор <span>VITALY.Ai</span></h2>
+          <Link to="/new" className="brand">
+  ИИ репетитор <span>VITALY.Ai</span>
+</Link>
+
         </div>
 
         <nav className="tabs" role="tablist" aria-label="главное меню">

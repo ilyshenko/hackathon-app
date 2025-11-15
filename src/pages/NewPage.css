@@ -1,0 +1,102 @@
+.lp-wrapper {
+  background: #ffffff;
+  color: #111;
+  font-family: "Inter", sans-serif;
+}
+
+/* ЛОГО ПО ЦЕНТРУ */
+.logo-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 20px;
+}
+
+.main-logo {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0px 4px 14px rgba(0,0,0,0.12));
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 40px 80px;
+  align-items: center;
+}
+
+.hero-content h1 {
+  font-size: 62px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.hero-sub {
+  width: 420px;
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+
+/* КРАСИВАЯ КНОПКА */
+.hero-btn {
+  display: inline-block;
+  background: #fa7402;
+  color: white;
+  padding: 14px 34px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.glow-btn {
+  box-shadow: 0 0 18px rgba(250, 116, 2, 0.5);
+}
+
+.glow-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 26px rgba(250, 116, 2, 0.7);
+}
+
+.hero-image img {
+  width: 420px;
+}
+
+/* GRID */
+.info-grid {
+  margin-top: 40px;
+  padding: 40px;
+  display: flex;
+  gap: 32px;
+}
+
+.info-card {
+  flex: 1;
+  background: #fff9ed;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.info-card h2 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* FOOTER */
+.lp-footer {
+  margin-top: 60px;
+  padding: 40px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.7;
+}
